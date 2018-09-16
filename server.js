@@ -39,3 +39,4 @@ app.listen(PORT, function() {
 
 //export express instance
 module.exports = app;
+//module.exports = db; //can I have multiple exports in the same file... we'll find out
