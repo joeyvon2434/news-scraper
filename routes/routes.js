@@ -97,4 +97,16 @@ module.exports = function (app) {
     });//end post route to create a note
 
 
+    //Get route to show previous note when requested by user
+    app.get("/article/:id", function(req, res) {
+        db.article.findOne({_id: req.params.id})
+        .populate("note")
+        .then(function(dbArticle) {
+            res.json(dbArticle);
+        })
+        .catch(function(err) {
+            res.json(err);
+        });
+    });//end get route for existing note
+
 };//end module.exports

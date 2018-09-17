@@ -25,13 +25,23 @@ $(document).ready(function () { //document ready cause page to load part way dow
     //Click function to bring up the notes page
     $(this).on('click', '.article-notes-button', function () {
         event.preventDefault();
+        //set fields with know data
         var title = $(this).data('title');
-        console.log('Title: ' + title);
         $('#note-article-title').text(title);
         var id= $(this).data('id');
-        console.log('Id: ' + id);
         $('#note-save-button').attr('data-id', id);
         $('#note-delete-button').attr('data-id', id);
+
+        //ajax call to retreive note for article
+        $.ajax({
+            method: "GET",
+            url: "/article/" + id
+        }).then(function(response) {
+            //take data from database and populate the note fields
+            console.log(response);
+            $("#note-title").val(response.note.noteTitle);
+            $("#note-text").text(response.note.noteText);
+        });
 
         $('.note-toggle').slideToggle();
     });//end function to bring up notes
@@ -60,7 +70,7 @@ $(document).ready(function () { //document ready cause page to load part way dow
             url: "/article/" + thisId,
             data: noteObject
         }).then(function() {
-            //finish out response here (maybe page re-load)
+            $('.note-toggle').slideToggle();
         });
 
     });//close save note clck function
