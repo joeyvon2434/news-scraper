@@ -24,13 +24,14 @@ module.exports = function (app) {
 
             res.render("index", articlesObject);
         })
-        .catch(function(err) {
-            console.log(err);
-        });
+            .catch(function (err) {
+                console.log(err);
+            });
     });//end home route
 
+
     app.get("/scrape", function (req, res) {
-        //use request to get the HTML body from the indicated site
+        //use request and request promise to get the HTML body from the indicated site
         rp("https://www.npr.org/sections/news/", function (error, response, html) {
 
             //set the html body equal to $ with cheerio
@@ -71,15 +72,29 @@ module.exports = function (app) {
                     });
                 }
             });//end the loop for cheerio
-
-            //send info letting user know the scrape was completed
-            //Change this to res.end later, and add a location reload in the ajax call
-            //res.send("Scrape Complete");
-        })//end scraper request
-        .then(function() {
-            res.end();
-        })
+        })//end scraper request, then use request promise to send the response
+            .then(function () {
+                res.end();
+            });
     });//end scrape route
+
+
+    //Post route to create a note and associate it with an article using populate
+    app.post("/article/:id", function (req, res) {
+        //create the note in the database
+
+        console.log(req.params.id);
+        db.note.create(req.body)
+            //then associate the note with the correct article
+            .then(function (newNote) {
+                return db.article.findOneAndUpdate({ _id: req.params.id }, { note: newNote._id }, { new: true });
+            }).then(function (dbArticle) {
+                res.json(dbArticle);
+            })
+            .catch(function (err) {
+                res.json(err);
+            });
+    });//end post route to create a note
 
 
 };//end module.exports
