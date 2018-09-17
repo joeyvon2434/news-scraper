@@ -5,6 +5,7 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
 var request = require("request");
+var exphbs = require('express-handlebars');
 
 //SQL database set up
 //######################
@@ -31,6 +32,10 @@ app.use(express.static("public"));
 
 //Connect to Mongo DB
 mongoose.connect("mongodb://localhost/news-scraper", {useNewUrlParser: true});
+
+//set up handlebars
+app.engine("handlebars", exphbs({defaultLayout: "main"}));
+app.set("view engine", "handlebars");
 
 //Routes: pull in routes from external file
 require("./routes/routes") (app);

@@ -1,0 +1,17 @@
+<div id="content">
+    <button id="scrape-button">Check for new stories!</button>
+
+    {{#each articleArray}}
+    <div class="article-box">
+        <h2 class="article-title">{{title}}</h2>
+        <img class="article-image" src="{{imageLink}}" alt="The picture did not show">
+        <p class="article-summary">placeholder</p>
+        <button class="article-link-button article-button" onclick="location.href='{{link}}'">Go to Article on npr.org</button>
+        <button class="article-notes-button article-button">Create and Review Notes</button>
+
+    </div>
+    {{/each}}
+
+</div>
+
+<script src="/js/index.js"></script>
