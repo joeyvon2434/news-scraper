@@ -1,6 +1,7 @@
 //Pull in the cheerio scraping tool
 var cheerio = require("cheerio");
 var request = require("request");
+var rp = require('request-promise');
 var mongoose = require("mongoose");
 
 //Pull in mogoose db files
@@ -30,7 +31,7 @@ module.exports = function (app) {
 
     app.get("/scrape", function (req, res) {
         //use request to get the HTML body from the indicated site
-        request("https://www.npr.org/sections/news/", function (error, response, html) {
+        rp("https://www.npr.org/sections/news/", function (error, response, html) {
 
             //set the html body equal to $ with cheerio
             var $ = cheerio.load(html);
@@ -43,6 +44,7 @@ module.exports = function (app) {
 
                 result.title = $(this).find(".item-info h2 a").text();
                 result.link = $(this).find(".item-info h2 a").attr("href");
+                result.summary = $(this).find(".item-info .teaser").text();
 
                 var imageLinkCheck = undefined;
                 imageLinkCheck = $(this).find(".item-image .imagewrap a img").attr("src");
@@ -68,14 +70,16 @@ module.exports = function (app) {
                         }
                     });
                 }
-            })//end the loop for cheerio
+            });//end the loop for cheerio
 
             //send info letting user know the scrape was completed
             //Change this to res.end later, and add a location reload in the ajax call
-            res.send("Scrape Complete");
-
-        });//end scraper request
+            //res.send("Scrape Complete");
+        })//end scraper request
+        .then(function() {
+            res.end();
+        })
     });//end scrape route
 
 
-}//end module.exports
+};//end module.exports

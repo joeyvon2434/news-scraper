@@ -18,6 +18,9 @@ var ArticleSchema = new Schema({
         required: true,
         unique: true
     },
+    summary: {
+        type: String
+    },
     imageLink: {
         type: String
     },
