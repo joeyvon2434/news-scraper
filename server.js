@@ -20,8 +20,11 @@ var db = require("./models");
 //set port
 var PORT = process.env.PORT || 3000;
 
+//set up express instance
+var app = express();
+
 //require body-parser
-app.use(bodyparser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({extended: true}));
 
 //set up static routes in express
 app.use(express.static("public"));
