@@ -1,3 +1,12 @@
+body {
+    background-color: rgb(233, 233, 233);
+}
+
+#content {
+    background-color: white;
+    box-shadow: 0 2px 2px rgb(97, 97, 97);
+}
+
 #main-wrapper {
     position: absolute;
     width: 100%;
@@ -17,6 +26,8 @@ header {
     text-align: center;
     box-shadow: 2px 2px 2px rgb(97, 97, 97);
     background: rgb(107, 166, 255);
+    text-shadow: 2px 2px rgb(20, 20, 20);
+    color: white;
 }
 
 footer {
@@ -54,29 +65,33 @@ footer div a:hover {
     padding: 10px;
     margin: 1% auto;
     font-size: 20px;
+    background-color: rgb(255, 71, 71);
+    color: white;
 }
 
 button {
     cursor: pointer;
     border-radius: 5px;
     text-align: center;
+    box-shadow: 0 2px 1px rgb(97, 97, 97);
 }
 
 button:hover {
-    box-shadow: 2px 2px 2px lightblue;
-    text-shadow: 2px 2px 2px lightblue;
+    box-shadow: 0 2px 2px rgb(121, 197, 223);
+    text-shadow: 0 2px 2px black;
 }
 
 .article-box{
     display: grid;
     width: 85%;
-    margin: 1% auto;
+    margin: 2% auto;
     border: 1px solid black;
     padding: 15px;
     grid-row-gap: 10px;
     grid-column-gap: 10px;
     justify-content: space-evenly;
     grid-template-columns: 30% 30% 30%;
+    box-shadow: 0 2px 2px rgb(97, 97, 97);
 }
 
 .article-title, .article-summary {
@@ -95,11 +110,13 @@ button:hover {
 .article-link-button {
     grid-column-start: 1;
     grid-column-end: 2;
+    background-color: rgb(107, 166, 255);
 }
 
 .article-notes-button {
     grid-column-start: 2;
     grid-column-end: 3;
+    background-color: rgb(97, 160, 97);
 }
 
 .article-title {
@@ -107,7 +124,11 @@ button:hover {
     font-weight: bold;
 }
 .article-button {
+    margin: 10px 20px 0 20px;
     padding: 5px;
+    font-size: 16px;
+    color: white;
+    text-shadow: 0 1px 1px rgb(97, 97, 97);
 }
 
 #note-background {
@@ -132,6 +153,7 @@ button:hover {
     padding: 15px;
     border: 1px solid black;
     background-color: white;
+    box-shadow: 0 5px 5px rgb(97, 97, 97);
 }
 
 #note-content {
@@ -144,8 +166,39 @@ button:hover {
     width: 100%;
 }
 
+#note-article-title {
+    color: rgb(190, 0, 0);
+    font-weight: bold;
+    font-size: 22px;
+}
+
+form {
+    margin-top: 15px;
+}
+
+form input, form textarea {
+    font-size: 16px;
+    padding: 3px;
+}
+
 #note-text {
     height: 150px;
+}
+
+.comment-button {
+    margin: 10px;
+    padding: 5px 10px;
+    font-size: 14px;
+    color: white;
+    text-shadow: 0 1px 1px rgb(20, 20, 20);
+}
+
+#close-button {
+    background-color: rgb(255, 71, 71);
+}
+
+#note-save-button {
+    background-color: rgb(97, 160, 97);
 }
 
 #comment-box {

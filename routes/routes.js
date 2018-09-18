@@ -97,7 +97,7 @@ module.exports = function (app) {
     });//end post route to create a note
 
 
-    //Get route to show previous note when requested by user
+    //Get route to show previous notes when requested by user
     app.get("/article/:id", function(req, res) {
         db.article.findOne({_id: req.params.id})
         .populate("note")

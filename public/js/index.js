@@ -1,6 +1,7 @@
 //File: index.js
 //Summary: This file provides the client side javascript for the home page including all click functionality and client side validation
 
+
 $(document).ready(function () { //document ready cause page to load part way down
     $('.note-toggle').hide();
     $(this).scrollTop(0);
@@ -25,6 +26,10 @@ $(document).ready(function () { //document ready cause page to load part way dow
     //Click function to bring up the notes page
     $(this).on('click', '.article-notes-button', function () {
         event.preventDefault();
+
+        $("#note-title").val("");
+        $("#note-text").val("");
+
         //set fields with know data
         var title = $(this).data('title');
         $('#note-article-title').text(title);
@@ -95,11 +100,11 @@ $(document).ready(function () { //document ready cause page to load part way dow
 
 });//end document.ready
 
-
+//This function populates the comment box when called
 function populateCommentBox(response) {
     $("#comment-box").empty();
 
-    for (var i = 0; i < response.note.length; i++) {
+    for (var i = response.note.length -1; i > -1; i--) {
         var note = response.note[i];
 
         var comment = $("<div class='comment' data-id='" + note._id + "'></div>");
