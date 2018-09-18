@@ -185,7 +185,7 @@ form input, form textarea {
     height: 150px;
 }
 
-.comment-button {
+.comment-button, .note-delete-button {
     margin: 10px;
     padding: 5px 10px;
     font-size: 14px;
@@ -212,5 +212,28 @@ form input, form textarea {
     padding: 8px 20px 8px 20px;
     margin: 8px;
     background-color: lightgray;
+}
+
+.comment-title {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.comment-text {
+    margin: 10px auto;
+}
+
+.note-delete-button {
+    margin: 0 5px;
+    background-color: rgb(255, 71, 71);
+}
+
+#close-x {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px;
+    display: block;
+    cursor: pointer;
 }
 

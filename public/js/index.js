@@ -52,7 +52,22 @@ $(document).ready(function () { //document ready cause page to load part way dow
 
 
     //Click function to close the note without saving
+    //with the close button
     $('#close-button').on('click', function () {
+        event.preventDefault();
+        $('.note-toggle').slideToggle();
+    });//end close note without saving button function
+
+    //Click function to close the note without saving
+    //by clicking outside of the comment box
+    $('#note-background').on('click', function () {
+        event.preventDefault();
+        $('.note-toggle').slideToggle();
+    });//end close note without saving button function
+
+    //Click function to close the note without saving
+    //by clicking the x in the top right
+    $('#close-x').on('click', function () {
         event.preventDefault();
         $('.note-toggle').slideToggle();
     });//end close note without saving button function
@@ -87,12 +102,11 @@ $(document).ready(function () { //document ready cause page to load part way dow
         var noteId = $(this).attr('data-id');
         $(this).parent().remove();
 
-
         $.ajax({
             method: "DELETE",
             url: "/note/" + noteId
         }).then(function () {
-            
+
         });
 
     });//end delete click function for notes / comments
@@ -104,7 +118,7 @@ $(document).ready(function () { //document ready cause page to load part way dow
 function populateCommentBox(response) {
     $("#comment-box").empty();
 
-    for (var i = response.note.length -1; i > -1; i--) {
+    for (var i = response.note.length - 1; i > -1; i--) {
         var note = response.note[i];
 
         var comment = $("<div class='comment' data-id='" + note._id + "'></div>");
