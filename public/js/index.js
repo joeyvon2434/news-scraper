@@ -3,8 +3,10 @@
 
 
 $(document).ready(function () { //document ready cause page to load part way down
-    $('.note-toggle').hide();
-    $(this).scrollTop(0);
+    //$('.note-toggle').hide();
+    //$(document).scrollTop(0);
+    //window.scrollTo(0);
+
 
 
     //Scraper click function

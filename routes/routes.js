@@ -16,7 +16,7 @@ module.exports = function (app) {
     app.get("/", function (req, res) {
 
         //get info from mongodb for all articles
-        db.article.find({}).then(function (dbResponse) {
+        db.article.find({}).sort({_id: -1}).then(function (dbResponse) {
 
             var articlesObject = {};
 
