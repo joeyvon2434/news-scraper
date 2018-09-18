@@ -38,22 +38,8 @@ $(document).ready(function () { //document ready cause page to load part way dow
             url: "/article/" + id
         }).then(function (response) {
 
-            $("#comment-box").empty();
+            populateCommentBox(response);
 
-            for (var i = 0; i < response.note.length; i++) {
-                var note = response.note[i];
-
-                var comment = $("<div class='comment' data-id='" + note._id + "'></div>");
-                var commentTitle = $("<h3 class='comment-title'>" + note.noteTitle + "</h3>");
-                var commentText = $("<p class='comment-text'>" + note.noteText + "</p>");
-                var deleteButton = $("<button class='note-delete-button' data-id='" + note._id + "'>Delete Comment</button>");
-
-                comment.append(commentTitle);
-                comment.append(commentText);
-                comment.append(deleteButton);
-
-                $("#comment-box").append(comment);
-            }
         });
 
         $('.note-toggle').slideToggle();
@@ -89,7 +75,7 @@ $(document).ready(function () { //document ready cause page to load part way dow
 
 
     //Click function to delete a note
-    $(this).on('click', ".note-delete-button", function() {
+    $(this).on('click', ".note-delete-button", function () {
         event.preventDefault();
 
         console.log('Deleting Note!')
@@ -100,7 +86,7 @@ $(document).ready(function () { //document ready cause page to load part way dow
         $.ajax({
             method: "DELETE",
             url: "/note/" + noteId
-        }).then(function() {
+        }).then(function () {
             
         });
 
@@ -108,3 +94,23 @@ $(document).ready(function () { //document ready cause page to load part way dow
 
 
 });//end document.ready
+
+
+function populateCommentBox(response) {
+    $("#comment-box").empty();
+
+    for (var i = 0; i < response.note.length; i++) {
+        var note = response.note[i];
+
+        var comment = $("<div class='comment' data-id='" + note._id + "'></div>");
+        var commentTitle = $("<h3 class='comment-title'>" + note.noteTitle + "</h3>");
+        var commentText = $("<p class='comment-text'>" + note.noteText + "</p>");
+        var deleteButton = $("<button class='note-delete-button' data-id='" + note._id + "'>Delete Comment</button>");
+
+        comment.append(commentTitle);
+        comment.append(commentText);
+        comment.append(deleteButton);
+
+        $("#comment-box").append(comment);
+    }
+};
