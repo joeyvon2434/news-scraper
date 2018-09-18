@@ -87,7 +87,7 @@ module.exports = function (app) {
         db.note.create(req.body)
             //then associate the note with the correct article
             .then(function (newNote) {
-                return db.article.findOneAndUpdate({ _id: req.params.id }, { note: newNote._id }, { new: true });
+                return db.article.findOneAndUpdate({ _id: req.params.id }, {$push: { note: newNote._id }}, { new: true });
             }).then(function (dbArticle) {
                 res.json(dbArticle);
             })
@@ -108,5 +108,17 @@ module.exports = function (app) {
             res.json(err);
         });
     });//end get route for existing note
+
+
+    //Delete route for removing a note
+    app.delete("/note/:id", function(req, res) {
+        db.note.deleteOne({_id: req.params.id})
+        .then(function() {
+            res.json('Note removed');
+        })
+        .catch(function(err) {
+            res.json(err);
+        });
+    });
 
 };//end module.exports

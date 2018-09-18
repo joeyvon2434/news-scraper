@@ -28,7 +28,7 @@ $(document).ready(function () { //document ready cause page to load part way dow
         //set fields with know data
         var title = $(this).data('title');
         $('#note-article-title').text(title);
-        var id= $(this).data('id');
+        var id = $(this).data('id');
         $('#note-save-button').attr('data-id', id);
         $('#note-delete-button').attr('data-id', id);
 
@@ -36,11 +36,24 @@ $(document).ready(function () { //document ready cause page to load part way dow
         $.ajax({
             method: "GET",
             url: "/article/" + id
-        }).then(function(response) {
-            //take data from database and populate the note fields
-            console.log(response);
-            $("#note-title").val(response.note.noteTitle);
-            $("#note-text").text(response.note.noteText);
+        }).then(function (response) {
+
+            $("#comment-box").empty();
+
+            for (var i = 0; i < response.note.length; i++) {
+                var note = response.note[i];
+
+                var comment = $("<div class='comment' data-id='" + note._id + "'></div>");
+                var commentTitle = $("<h3 class='comment-title'>" + note.noteTitle + "</h3>");
+                var commentText = $("<p class='comment-text'>" + note.noteText + "</p>");
+                var deleteButton = $("<button class='note-delete-button' data-id='" + note._id + "'>Delete Comment</button>");
+
+                comment.append(commentTitle);
+                comment.append(commentText);
+                comment.append(deleteButton);
+
+                $("#comment-box").append(comment);
+            }
         });
 
         $('.note-toggle').slideToggle();
@@ -55,24 +68,43 @@ $(document).ready(function () { //document ready cause page to load part way dow
 
 
     //Click function to save a new note
-    $('#note-save-button').on('click', function() {
+    $('#note-save-button').on('click', function () {
         event.preventDefault();
 
         var thisId = $(this).data("id");
-        console.log("thisId: " + thisId);
         var noteObject = {
             noteTitle: $("#note-title").val(),
             noteText: $("#note-text").val()
         };
 
+        //ajax call to post the new note to the database
         $.ajax({
             method: "POST",
             url: "/article/" + thisId,
             data: noteObject
-        }).then(function() {
+        }).then(function () {
             $('.note-toggle').slideToggle();
         });
-
     });//close save note clck function
+
+
+    //Click function to delete a note
+    $(this).on('click', ".note-delete-button", function() {
+        event.preventDefault();
+
+        console.log('Deleting Note!')
+        var noteId = $(this).attr('data-id');
+        $(this).parent().remove();
+
+
+        $.ajax({
+            method: "DELETE",
+            url: "/note/" + noteId
+        }).then(function() {
+            
+        });
+
+    });//end delete click function for notes / comments
+
 
 });//end document.ready

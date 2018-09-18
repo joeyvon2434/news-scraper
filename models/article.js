@@ -24,10 +24,10 @@ var ArticleSchema = new Schema({
     imageLink: {
         type: String
     },
-    note: {
+    note: [{
         type: Schema.Types.ObjectId,
-        ref: "Note" //this may need to be lowercase, check once data is being pulled
-    }
+        ref: "Note"
+    }]
 
 }); //end article schema
 

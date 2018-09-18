@@ -126,7 +126,7 @@ button:hover {
     position: fixed;
     display: block;
     z-index: 2;
-    top: 20%;
+    top: 5%;
     left: 20%;
     width: 60%;
     padding: 15px;
@@ -140,11 +140,24 @@ button:hover {
     margin: 1.5% auto;
 }
 
-#note-content input, #note-content textarea {
+#note-content input, #note-content textarea, #comment-box {
     width: 100%;
 }
 
 #note-text {
     height: 150px;
+}
+
+#comment-box {
+    display: block;
+    border: 1px solid black;
+    overflow: scroll;
+    max-height: 35vh;
+}
+
+.comment {
+    padding: 8px 20px 8px 20px;
+    margin: 8px;
+    background-color: lightgray;
 }
 
