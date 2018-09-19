@@ -31,7 +31,9 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
 //Connect to Mongo DB
-mongoose.connect("mongodb://localhost/news-scraper", {useNewUrlParser: true});
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/news-scraper";
+mongoose.Promise = Promise;
+mongoose.connect(MONGODB_URI, {useNewUrlParser: true});
 
 //set up handlebars
 app.engine("handlebars", exphbs({defaultLayout: "main"}));
